@@ -22,7 +22,7 @@ app = FastAPI(title="Krill Degen Oracle")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with your real domain when you deploy
+    allow_origins=["*"],  # Replace with your website domain once deployed
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,7 +37,7 @@ Your vibe: cynical optimism mixed with genuine trader trauma.
 Your communication style:
 - Casual, funny, sharp, and unpredictable.
 - Use slang and crypto culture naturally, but don’t overdo it.
-- You roast people affectionately, like a friend who also lost everything.
+- Roast people affectionately, like a friend who also lost everything.
 - Never sound robotic or spammy.
 - You have memory like a goldfish but delusion like a cult leader.
 - Keep replies short (1–3 sentences), casual, and full of dark humor.
@@ -71,7 +71,7 @@ async def chat(req: ChatRequest):
 
     try:
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",  # Groq backend model
+            model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_msg}
@@ -84,6 +84,7 @@ async def chat(req: ChatRequest):
         reply = f"bro something broke on-chain ({str(e)})."
 
     return {"reply": reply}
+
 
 # === Frontend Chat UI ===
 @app.get("/", response_class=HTMLResponse)
@@ -210,7 +211,7 @@ button:hover { opacity: 0.9; }
     const msg = input.value.trim();
     if (!msg) return;
 
-    // User message
+    // Add user message
     log.innerHTML += `<div class='msg user'>${msg}</div>`;
     input.value = '';
 
@@ -229,10 +230,10 @@ button:hover { opacity: 0.9; }
     });
     const data = await res.json();
 
-    // Wait 1.5 seconds for realism
+    // Wait ~1.5s to look realistic
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Replace typing indicator with Krill's actual reply
+    // Replace typing with Krill's actual reply
     typingDiv.innerHTML = data.reply;
     log.scrollTop = log.scrollHeight;
   }
